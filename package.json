@@ -18,8 +18,7 @@
     "release": "yarn build && changeset publish",
     "test": "jest",
     "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
-    "start:next": "yarn manypkg run next-app start",
-    "start:server": "yarn manypkg run graphql-api start",
+    "app:web": "yarn manypkg run web",
     "start": "echo figure out how to start both services simultaneously here",
     "lint": "yarn eslint ."
   },
@@ -33,7 +32,7 @@
     "@manypkg/cli": "^0.19.1",
     "@preconstruct/cli": "^2.1.5",
     "babel-jest": "^27.5.1",
-    "eslint": "^8.10.0",
+    "eslint": "8.10.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
     "prettier": "^2.5.1"
