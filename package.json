@@ -1,0 +1,46 @@
+{
+  "name": "goodmovie",
+  "version": "1.0.0",
+  "description": "Hassle free to search good movie",
+  "main": "index.js",
+  "author": "Frendy Priandi",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "apps/*",
+    "website"
+  ],
+  "scripts": {
+    "postinstall": "preconstruct dev && manypkg check",
+    "build": "preconstruct build",
+    "release": "yarn build && changeset publish",
+    "test": "jest",
+    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
+    "start:next": "yarn manypkg run next-app start",
+    "start:server": "yarn manypkg run graphql-api start",
+    "start": "echo figure out how to start both services simultaneously here",
+    "lint": "yarn eslint ."
+  },
+  "dependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@changesets/cli": "^2.21.1",
+    "@manypkg/cli": "^0.19.1",
+    "@preconstruct/cli": "^2.1.5",
+    "babel-jest": "^27.5.1",
+    "eslint": "^8.10.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.5.1"
+  },
+  "preconstruct": {
+    "packages": [
+      "services/*"
+    ]
+  }
+}
