@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",
+    "fix-deps": "manypkg fix",
     "build": "preconstruct build",
     "release": "yarn build && changeset publish",
     "test": "jest",
