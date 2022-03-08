@@ -1,0 +1,14 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "off",
+
+  // typescript
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.format.semicolons": "insert",
+
+  // html
+  "html.format.endWithNewline": true,
+  "html.format.indentInnerHtml": true,
+  "html.format.wrapLineLength": 0,
+}
