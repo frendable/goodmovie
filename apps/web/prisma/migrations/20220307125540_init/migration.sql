@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "User" (
     "email" TEXT NOT NULL,
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL PRIMARY KEY,
     "name" TEXT
 );
 
@@ -9,7 +9,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Post" (
     "authorId" INTEGER,
     "content" TEXT,
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL PRIMARY KEY,
     "published" BOOLEAN NOT NULL DEFAULT false,
     "title" TEXT NOT NULL,
     CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE SET NULL ON UPDATE CASCADE
