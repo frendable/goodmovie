@@ -12,8 +12,27 @@ import {
 import path from 'path'
 import cors from 'micro-cors'
 import prisma from '../../lib/prisma'
+// import fetch from 'node-fetch'
 
 export const GQLDate = asNexusMethod(DateTimeResolver, 'date')
+
+const Profile = objectType({
+  name: 'Profile',
+  definition(t) {
+    t.nonNull.int('id')
+    t.string('bio')
+    t.field('user', {
+      type: 'User',
+      resolve: (parent) => {
+        return prisma.profile
+          .findUnique({
+            where: { id: parent.id || undefined },
+          })
+          .user()
+      },
+    })
+  },
+})
 
 const User = objectType({
   name: 'User',
@@ -29,6 +48,14 @@ const User = objectType({
             where: { id: Number(parent.id) },
           })
           .posts(),
+    })
+    t.field('profile', {
+      type: 'Profile',
+      resolve: (parent) => {
+        return prisma.user.findUnique({
+          where: { id: parent.id }
+        }).profile()
+      }
     })
   },
 })
@@ -60,7 +87,13 @@ const Query = objectType({
       args: {
         postId: nonNull(stringArg()),
       },
-      resolve: (_, args) => {
+      resolve: async (_, args) => {
+        // const test = await fetch('https://api.themoviedb.org/3/trending/all/day?api_key=e402ac10a45433e0460901c120d979c3');
+        // console.log('FRENDY', await test.json())
+        // const test = await prisma.post.findUnique({
+        //   where: { id: Number(args.postId) },
+        // });
+        // console.log('QUERY POST', test)
         return prisma.post.findUnique({
           where: { id: Number(args.postId) },
         })
@@ -168,11 +201,31 @@ const Mutation = objectType({
         })
       },
     })
+
+    t.field('addProfileForUser', {
+      type: 'Profile',
+      args: {
+        email: stringArg(),
+        bio: stringArg()
+      },
+      resolve: async (_, args) => {
+        return prisma.profile.create({
+          data: {
+            bio: args.bio,
+            user: {
+              connect: {
+                email: args.email || undefined,
+              }
+            }
+          }
+        })
+      }
+    })
   },
 })
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Post, User, GQLDate],
+  types: [Query, Mutation, Post, User, Profile, GQLDate],
   outputs: {
     typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
     schema: path.join(process.cwd(), 'generated/schema.graphql'),

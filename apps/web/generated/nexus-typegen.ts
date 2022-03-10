@@ -50,6 +50,10 @@ export interface NexusGenObjects {
     published?: boolean | null; // Boolean
     title?: string | null; // String
   }
+  Profile: { // root type
+    bio?: string | null; // String
+    id: number; // Int!
+  }
   Query: {};
   User: { // root type
     email?: string | null; // String
@@ -70,6 +74,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
+    addProfileForUser: NexusGenRootTypes['Profile'] | null; // Profile
     createDraft: NexusGenRootTypes['Post'] | null; // Post
     deletePost: NexusGenRootTypes['Post'] | null; // Post
     publish: NexusGenRootTypes['Post'] | null; // Post
@@ -82,6 +87,11 @@ export interface NexusGenFieldTypes {
     published: boolean | null; // Boolean
     title: string | null; // String
   }
+  Profile: { // field return type
+    bio: string | null; // String
+    id: number; // Int!
+    user: NexusGenRootTypes['User'] | null; // User
+  }
   Query: { // field return type
     drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
@@ -93,11 +103,13 @@ export interface NexusGenFieldTypes {
     id: number | null; // Int
     name: string | null; // String
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    profile: NexusGenRootTypes['Profile'] | null; // Profile
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
+    addProfileForUser: 'Profile'
     createDraft: 'Post'
     deletePost: 'Post'
     publish: 'Post'
@@ -110,6 +122,11 @@ export interface NexusGenFieldTypeNames {
     published: 'Boolean'
     title: 'String'
   }
+  Profile: { // field return type name
+    bio: 'String'
+    id: 'Int'
+    user: 'User'
+  }
   Query: { // field return type name
     drafts: 'Post'
     feed: 'Post'
@@ -121,11 +138,16 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     name: 'String'
     posts: 'Post'
+    profile: 'Profile'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
+    addProfileForUser: { // args
+      bio?: string | null; // String
+      email?: string | null; // String
+    }
     createDraft: { // args
       authorEmail?: string | null; // String
       content?: string | null; // String
