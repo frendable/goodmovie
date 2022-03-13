@@ -4,7 +4,6 @@ import { makeSchema } from 'nexus'
 import path from 'path'
 import cors from 'micro-cors'
 import * as types from './types/index'
-// import fetch from 'node-fetch'
 
 
 export const schema = makeSchema({

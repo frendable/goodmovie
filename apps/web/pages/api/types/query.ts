@@ -5,6 +5,7 @@ import {
   nullable,
 } from 'nexus'
 import prisma from '../../../lib/prisma'
+import { TrendingQuery, PopularQuery } from './movie'
 
 export const Query = objectType({
   name: 'Query',
@@ -15,12 +16,6 @@ export const Query = objectType({
         postId: nonNull(stringArg()),
       },
       resolve: async (_, args) => {
-        // const test = await fetch('https://api.themoviedb.org/3/trending/all/day?api_key=e402ac10a45433e0460901c120d979c3');
-        // console.log('FRENDY', await test.json())
-        // const test = await prisma.post.findUnique({
-        //   where: { id: Number(args.postId) },
-        // });
-        // console.log('QUERY POST', test)
         return prisma.post.findUnique({
           where: { id: Number(args.postId) },
         })
@@ -73,5 +68,8 @@ export const Query = objectType({
         })
       },
     })
+
+    TrendingQuery(t),
+    PopularQuery(t)
   },
 })

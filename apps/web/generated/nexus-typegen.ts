@@ -43,6 +43,28 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Movie: { // root type
+    adult?: boolean | null; // Boolean
+    backdrop_path?: string | null; // String
+    genre_ids?: Array<string | null> | null; // [String]
+    id?: number | null; // Int
+    original_language?: string | null; // String
+    original_title?: string | null; // String
+    overview?: string | null; // String
+    popularity?: number | null; // Float
+    poster_path?: string | null; // String
+    release_date?: string | null; // String
+    title?: string | null; // String
+    video?: boolean | null; // Boolean
+    vote_average?: number | null; // Float
+    vote_count?: number | null; // Int
+  }
+  MovieList: { // root type
+    page?: number | null; // Int
+    results?: Array<NexusGenRootTypes['Movie'] | null> | null; // [Movie]
+    total_pages?: number | null; // Int
+    total_results?: number | null; // Int
+  }
   Mutation: {};
   Post: { // root type
     content?: string | null; // String
@@ -73,6 +95,28 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Movie: { // field return type
+    adult: boolean | null; // Boolean
+    backdrop_path: string | null; // String
+    genre_ids: Array<string | null> | null; // [String]
+    id: number | null; // Int
+    original_language: string | null; // String
+    original_title: string | null; // String
+    overview: string | null; // String
+    popularity: number | null; // Float
+    poster_path: string | null; // String
+    release_date: string | null; // String
+    title: string | null; // String
+    video: boolean | null; // Boolean
+    vote_average: number | null; // Float
+    vote_count: number | null; // Int
+  }
+  MovieList: { // field return type
+    page: number | null; // Int
+    results: Array<NexusGenRootTypes['Movie'] | null> | null; // [Movie]
+    total_pages: number | null; // Int
+    total_results: number | null; // Int
+  }
   Mutation: { // field return type
     addProfileForUser: NexusGenRootTypes['Profile'] | null; // Profile
     createDraft: NexusGenRootTypes['Post'] | null; // Post
@@ -96,7 +140,9 @@ export interface NexusGenFieldTypes {
     drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    popularMovieQuery: NexusGenRootTypes['MovieList'] | null; // MovieList
     post: NexusGenRootTypes['Post'] | null; // Post
+    trendingMovieQuery: NexusGenRootTypes['MovieList'] | null; // MovieList
     user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
@@ -109,6 +155,28 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Movie: { // field return type name
+    adult: 'Boolean'
+    backdrop_path: 'String'
+    genre_ids: 'String'
+    id: 'Int'
+    original_language: 'String'
+    original_title: 'String'
+    overview: 'String'
+    popularity: 'Float'
+    poster_path: 'String'
+    release_date: 'String'
+    title: 'String'
+    video: 'Boolean'
+    vote_average: 'Float'
+    vote_count: 'Int'
+  }
+  MovieList: { // field return type name
+    page: 'Int'
+    results: 'Movie'
+    total_pages: 'Int'
+    total_results: 'Int'
+  }
   Mutation: { // field return type name
     addProfileForUser: 'Profile'
     createDraft: 'Post'
@@ -132,7 +200,9 @@ export interface NexusGenFieldTypeNames {
     drafts: 'Post'
     feed: 'Post'
     filterPosts: 'Post'
+    popularMovieQuery: 'MovieList'
     post: 'Post'
+    trendingMovieQuery: 'MovieList'
     user: 'User'
   }
   User: { // field return type name
@@ -169,6 +239,9 @@ export interface NexusGenArgTypes {
   Query: {
     filterPosts: { // args
       searchString?: string | null; // String
+    }
+    popularMovieQuery: { // args
+      page: number; // Int!
     }
     post: { // args
       postId: string; // String!

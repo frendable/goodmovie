@@ -7,6 +7,30 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type Movie {
+  adult: Boolean
+  backdrop_path: String
+  genre_ids: [String]
+  id: Int
+  original_language: String
+  original_title: String
+  overview: String
+  popularity: Float
+  poster_path: String
+  release_date: String
+  title: String
+  video: Boolean
+  vote_average: Float
+  vote_count: Int
+}
+
+type MovieList {
+  page: Int
+  results: [Movie]
+  total_pages: Int
+  total_results: Int
+}
+
 type Mutation {
   addProfileForUser(bio: String, email: String): Profile
   createDraft(authorEmail: String, content: String, title: String!): Post
@@ -33,7 +57,9 @@ type Query {
   drafts: [Post]
   feed: [Post]
   filterPosts(searchString: String): [Post]
+  popularMovieQuery(page: Int!): MovieList
   post(postId: String!): Post
+  trendingMovieQuery: MovieList
   user(userId: String!): User
 }
 
