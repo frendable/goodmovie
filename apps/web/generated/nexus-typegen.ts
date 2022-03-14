@@ -66,21 +66,12 @@ export interface NexusGenObjects {
     total_results?: number | null; // Int
   }
   Mutation: {};
-  Post: { // root type
-    content?: string | null; // String
-    id?: number | null; // Int
-    published?: boolean | null; // Boolean
-    title?: string | null; // String
-  }
-  Profile: { // root type
-    bio?: string | null; // String
-    id: number; // Int!
-  }
   Query: {};
-  User: { // root type
-    email?: string | null; // String
+  Review: { // root type
+    comment?: string | null; // String
+    createdDate?: NexusGenScalars['DateTime'] | null; // DateTime
     id?: number | null; // Int
-    name?: string | null; // String
+    movieId?: number | null; // Int
   }
 }
 
@@ -118,39 +109,19 @@ export interface NexusGenFieldTypes {
     total_results: number | null; // Int
   }
   Mutation: { // field return type
-    addProfileForUser: NexusGenRootTypes['Profile'] | null; // Profile
-    createDraft: NexusGenRootTypes['Post'] | null; // Post
-    deletePost: NexusGenRootTypes['Post'] | null; // Post
-    publish: NexusGenRootTypes['Post'] | null; // Post
-    signupUser: NexusGenRootTypes['User'] | null; // User
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
-    content: string | null; // String
-    id: number | null; // Int
-    published: boolean | null; // Boolean
-    title: string | null; // String
-  }
-  Profile: { // field return type
-    bio: string | null; // String
-    id: number; // Int!
-    user: NexusGenRootTypes['User'] | null; // User
+    deleteReviewMutation: NexusGenRootTypes['Review'] | null; // Review
+    reviewMutation: NexusGenRootTypes['Review'] | null; // Review
   }
   Query: { // field return type
-    drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     popularMovieQuery: NexusGenRootTypes['MovieList'] | null; // MovieList
-    post: NexusGenRootTypes['Post'] | null; // Post
+    reviewQuery: Array<NexusGenRootTypes['Review'] | null> | null; // [Review]
     trendingMovieQuery: NexusGenRootTypes['MovieList'] | null; // MovieList
-    user: NexusGenRootTypes['User'] | null; // User
   }
-  User: { // field return type
-    email: string | null; // String
+  Review: { // field return type
+    comment: string | null; // String
+    createdDate: NexusGenScalars['DateTime'] | null; // DateTime
     id: number | null; // Int
-    name: string | null; // String
-    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    profile: NexusGenRootTypes['Profile'] | null; // Profile
+    movieId: number | null; // Int
   }
 }
 
@@ -178,76 +149,38 @@ export interface NexusGenFieldTypeNames {
     total_results: 'Int'
   }
   Mutation: { // field return type name
-    addProfileForUser: 'Profile'
-    createDraft: 'Post'
-    deletePost: 'Post'
-    publish: 'Post'
-    signupUser: 'User'
-  }
-  Post: { // field return type name
-    author: 'User'
-    content: 'String'
-    id: 'Int'
-    published: 'Boolean'
-    title: 'String'
-  }
-  Profile: { // field return type name
-    bio: 'String'
-    id: 'Int'
-    user: 'User'
+    deleteReviewMutation: 'Review'
+    reviewMutation: 'Review'
   }
   Query: { // field return type name
-    drafts: 'Post'
-    feed: 'Post'
-    filterPosts: 'Post'
     popularMovieQuery: 'MovieList'
-    post: 'Post'
+    reviewQuery: 'Review'
     trendingMovieQuery: 'MovieList'
-    user: 'User'
   }
-  User: { // field return type name
-    email: 'String'
+  Review: { // field return type name
+    comment: 'String'
+    createdDate: 'DateTime'
     id: 'Int'
-    name: 'String'
-    posts: 'Post'
-    profile: 'Profile'
+    movieId: 'Int'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    addProfileForUser: { // args
-      bio?: string | null; // String
-      email?: string | null; // String
+    deleteReviewMutation: { // args
+      reviewId: number; // Int!
     }
-    createDraft: { // args
-      authorEmail?: string | null; // String
-      content?: string | null; // String
-      title: string; // String!
-    }
-    deletePost: { // args
-      postId?: string | null; // String
-    }
-    publish: { // args
-      postId?: string | null; // String
-    }
-    signupUser: { // args
-      email: string; // String!
-      name?: string | null; // String
+    reviewMutation: { // args
+      comment: string; // String!
+      movieId: number; // Int!
     }
   }
   Query: {
-    filterPosts: { // args
-      searchString?: string | null; // String
-    }
     popularMovieQuery: { // args
       page: number; // Int!
     }
-    post: { // args
-      postId: string; // String!
-    }
-    user: { // args
-      userId: string; // String!
+    reviewQuery: { // args
+      movieId: number; // Int!
     }
   }
 }

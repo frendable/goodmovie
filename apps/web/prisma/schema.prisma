@@ -12,26 +12,9 @@ datasource db {
   url      = "postgres://nrozmuqieccoms:9ea7a3932cc605acba23c5fba5a362bf17212bc42d4ecd2210b928cf2979af95@ec2-52-205-3-3.compute-1.amazonaws.com:5432/d8835hbtur0454"
 }
 
-model User {
-  email   String   @unique
-  id      Int      @id @default(autoincrement())
-  name    String?
-  posts   Post[]
-  profile Profile?
-}
-
-model Post {
-  authorId  Int?
-  content   String?
-  id        Int     @id @default(autoincrement())
-  published Boolean @default(false)
-  title     String
-  author    User?   @relation(fields: [authorId], references: [id])
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+model Review {
+  id          Int      @id @default(autoincrement())
+  movieId     Int
+  comment     String
+  createdDate DateTime
 }
